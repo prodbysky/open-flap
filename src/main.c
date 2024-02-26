@@ -4,16 +4,18 @@
 #include "../include/GLEW/glew.h"
 #include "../include/GLFW/glfw3.h"
 
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 800
+
 int main(int argc, char *argv[]) {
     glfwInit();
-
 
     // Tell OpenGL to use OpenGL 3.3 Core
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(800, 800, "OpenGl Application", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "OpenGl Application", NULL, NULL);
 
     if (window == NULL) {
         fprintf(stderr, "Failed to create window\n");
@@ -30,8 +32,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    // Area where OpenGL will render to
-    glViewport(0, 0, 800, 800);
+    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     while (!glfwWindowShouldClose(window)) {
         glClearColor(0.035f, 0.05f, 0.2f, 1.0f);
