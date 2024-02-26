@@ -2,7 +2,6 @@
 *.d
 
 # Object files
-*.o
 *.ko
 *.obj
 *.elf
@@ -18,7 +17,6 @@
 
 # Libraries
 *.lib
-*.a
 *.la
 *.lo
 
@@ -29,12 +27,7 @@
 *.dylib
 
 # Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+build/
 
 # Debug files
 *.dSYM/
