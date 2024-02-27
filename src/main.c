@@ -4,7 +4,6 @@
 #include "../include/GLEW/glew.h"
 #include "../include/GLFW/glfw3.h"
 
-
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 640
 
@@ -38,14 +37,11 @@ int main(int argc, char *argv[]) {
 
     vao_t vao = vao_new();
     vao_bind(vao);
-
     vbo_t vbo = vbo_new(vertices, sizeof(vertices), GL_STATIC_DRAW);
-    vbo_bind(vbo);
-
     ebo_t ebo = ebo_new(indices, sizeof(indices), GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
-    glEnableVertexAttribArray(0);
+    ebo_bind(ebo);
+    
+    vao_add_attribute_f(vao, 0, 3, sizeof(GLfloat) * 3, 0, vbo);
 
     vbo_unbind();
     vao_unbind();
@@ -60,7 +56,6 @@ int main(int argc, char *argv[]) {
         shader_use(shader);
         vao_bind(vao);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
