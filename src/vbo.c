@@ -6,8 +6,8 @@ vbo_t vbo_new(const void *data, size_t size, GLenum usage) {
     vbo_bind(vbo);
     
     glBufferData(GL_ARRAY_BUFFER, size, data, usage);
-
     vbo_unbind();
+
     return vbo;
 }
 
