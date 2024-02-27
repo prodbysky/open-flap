@@ -3,6 +3,8 @@
 
 #include "../include/GLEW/glew.h"
 
+#include "vbo.h"
+
 typedef struct {
     GLuint ID;
 } vao_t;
@@ -10,5 +12,6 @@ typedef struct {
 vao_t vao_new();
 void vao_bind(vao_t vao);
 void vao_unbind();
+void vao_add_attribute_f(vao_t vao, int index, int count, size_t stride, size_t offset, vbo_t vbo);
 
 #endif // VAO_H
