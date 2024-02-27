@@ -42,6 +42,7 @@ int main(int argc, char *argv[]) {
     ebo_bind(ebo);
     
     vao_add_attribute_f(vao, 0, 3, sizeof(GLfloat) * 3, 0, vbo);
+    vao_enable_attribute(0);
 
     vbo_unbind();
     vao_unbind();

@@ -17,6 +17,9 @@ void vao_unbind() {
 void vao_add_attribute_f(vao_t vao, int index, int count, size_t stride, size_t offset, vbo_t vbo) {
     vbo_bind(vbo);
     glVertexAttribPointer(index, count, GL_FLOAT, GL_FALSE, stride, (void*)offset);
-    glEnableVertexAttribArray(index);
     vbo_unbind();
+}
+
+void vao_enable_attribute(int index) {
+    glEnableVertexAttribArray(index);
 }
