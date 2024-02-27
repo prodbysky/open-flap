@@ -4,21 +4,19 @@
 #include "../include/GLEW/glew.h"
 #include "../include/GLFW/glfw3.h"
 
+
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 640
 
-#define LOGGING
-#ifdef LOGGING
-#define LOG(...) fprintf(stderr, __VA_ARGS__);
-#else
-#define LOG(...) 
-#endif
+#include "shader.h"
+#include "vao.h"
+#include "log.h"
 
 static GLfloat vertices[] = {
-     0,            WINDOW_HEIGHT, 1.0f, // Bottom left
-     WINDOW_WIDTH, WINDOW_HEIGHT, 1.0f, // Bottom right
-     0,            0,             1.0f, // Top left
-     WINDOW_WIDTH, 0,             1.0f, // Top right
+     -0.1f, -0.1f, 1.0f, // Bottom left
+      0.1f, -0.1f, 1.0f, // Bottom right
+     -0.1f,  0.1f, 1.0f, // Top left
+      0.1f,  0.1f, 1.0f, // Top right
 };
 static GLint indices[] = {
     0, 1, 2, // Top triangle
@@ -26,7 +24,6 @@ static GLint indices[] = {
 };
 
 GLFWwindow* init_window(int w, int h, char* title);
-char* read_file(char* name);
 
 int main(int argc, char *argv[]) {
     GLFWwindow* window = init_window(WINDOW_WIDTH, WINDOW_HEIGHT, "Open flap");
@@ -37,12 +34,12 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    GLuint VAO, VBO, EBO;
-    glGenVertexArrays(1, &VAO);
+    vao_t vao = vao_new();
+    GLuint VBO, EBO;
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
 
-    glBindVertexArray(VAO);
+    vao_bind(vao);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -57,38 +54,21 @@ int main(int argc, char *argv[]) {
     glBindVertexArray(0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    const char* vertexShaderSource = read_file("vertex.glsl");
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
-
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    const char* fragmentShaderSource = read_file("fragment.glsl");
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
-    
-    GLuint shader = glCreateProgram();
-    glAttachShader(shader, vertexShader);
-    glAttachShader(shader, fragmentShader);
-
-    glLinkProgram(shader);
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+    shader_t shader = shader_new("vertex.glsl", "fragment.glsl");
 
     while (!glfwWindowShouldClose(window)) {
         glClearColor(0.035f, 0.05f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shader);
-        glBindVertexArray(VAO);
+        shader_use(shader);
+        vao_bind(vao);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
    
-    glDeleteProgram(shader);
+    shader_delete(shader);
     glfwDestroyWindow(window);
     glfwTerminate();
 
@@ -124,24 +104,4 @@ GLFWwindow* init_window(int w, int h, char* title) {
     LOG("[LOG]: Successfully created a window and initialized OpenGL functions\n");
 
     return window;
-}
-
-char* read_file(char* name) {
-    FILE* file = fopen(name, "r"); 
-    if (file == NULL) {
-        LOG("[ERROR]: Failed open file: %s\n", name);
-        return NULL;
-    }
-    fseek(file, 0, SEEK_END);
-    long fileSize = ftell(file);
-    fseek(file, 0, SEEK_SET);
-
-    char* string = malloc(sizeof(char) * (fileSize + 1));
-    fread(string, sizeof(char), fileSize, file);
-    string[fileSize + 1] = 0;
-
-    fclose(file);
-    LOG("[LOG]: Successfully read file: %s\n", name);
-
-    return string;
 }
