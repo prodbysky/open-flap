@@ -10,6 +10,7 @@
 
 #include "shader.h"
 #include "vao.h"
+#include "vbo.h"
 #include "log.h"
 
 const static GLfloat vertices[] = {
@@ -35,14 +36,15 @@ int main(int argc, char *argv[]) {
     }
 
     vao_t vao = vao_new();
-    GLuint VBO, EBO;
-    glGenBuffers(1, &VBO);
+    vao_bind(vao);
+
+    vbo_t vbo = vbo_new(vertices, sizeof(vertices), GL_STATIC_DRAW);
+    vbo_bind(vbo);
+
+    GLuint EBO;
     glGenBuffers(1, &EBO);
 
     vao_bind(vao);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
@@ -50,8 +52,8 @@ int main(int argc, char *argv[]) {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
     glEnableVertexAttribArray(0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
+    vbo_unbind();
+    vao_unbind();
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     shader_t shader = shader_new("vertex.glsl", "fragment.glsl");
