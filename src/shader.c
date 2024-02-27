@@ -38,7 +38,7 @@ shader_t shader_new(char *vertexShaderName, char *fragmentShaderName) {
     }
 
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    const char* fragmentShaderSource = read_file("fragment.glsl");
+    const char* fragmentShaderSource = read_file(fragmentShaderName);
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShader);
     
