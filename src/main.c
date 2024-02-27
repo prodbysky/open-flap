@@ -12,13 +12,13 @@
 #include "vao.h"
 #include "log.h"
 
-static GLfloat vertices[] = {
+const static GLfloat vertices[] = {
      -0.1f, -0.1f, 1.0f, // Bottom left
       0.1f, -0.1f, 1.0f, // Bottom right
      -0.1f,  0.1f, 1.0f, // Top left
       0.1f,  0.1f, 1.0f, // Top right
 };
-static GLint indices[] = {
+const static GLint indices[] = {
     0, 1, 2, // Top triangle
     2, 3, 1,  // Bottom triangle
 };

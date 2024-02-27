@@ -4,7 +4,7 @@
 #include "../include/GLEW/glew.h"
 
 typedef struct {
-  GLuint ID;
+    GLuint ID;
 } vao_t;
 
 vao_t vao_new();
