@@ -7,22 +7,13 @@
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 640
 
+#include "square.h"
 #include "shader.h"
 #include "vao.h"
 #include "vbo.h"
 #include "ebo.h"
 #include "log.h"
 
-const static GLfloat vertices[] = {
-     -0.1f, -0.1f, 1.0f, // Bottom left
-      0.1f, -0.1f, 1.0f, // Bottom right
-     -0.1f,  0.1f, 1.0f, // Top left
-      0.1f,  0.1f, 1.0f, // Top right
-};
-const static GLint indices[] = {
-    0, 1, 2, // Top triangle
-    2, 3, 1,  // Bottom triangle
-};
 
 GLFWwindow* init_window(int w, int h, char* title);
 
@@ -35,18 +26,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    vao_t vao = vao_new();
-    vao_bind(vao);
-    vbo_t vbo = vbo_new(vertices, sizeof(vertices), GL_STATIC_DRAW);
-    ebo_t ebo = ebo_new(indices, sizeof(indices), GL_STATIC_DRAW);
-    ebo_bind(ebo);
-    
-    vao_add_attribute_f(vao, 0, 3, sizeof(GLfloat) * 3, 0, vbo);
-    vao_enable_attribute(0);
-
-    vbo_unbind();
-    vao_unbind();
-    ebo_unbind();
+    square_t square = square_new(0, 0, 0.1, 0.1);
 
     shader_t shader = shader_new("vertex.glsl", "fragment.glsl");
 
@@ -54,9 +34,7 @@ int main(int argc, char *argv[]) {
         glClearColor(0.035f, 0.05f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        shader_use(shader);
-        vao_bind(vao);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        square_draw(square, shader);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }

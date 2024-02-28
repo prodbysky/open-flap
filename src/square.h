@@ -10,12 +10,13 @@
 #include "vao.h"
 
 typedef struct {
+    vao_t vao;
     vbo_t vbo; 
     ebo_t ebo;
     vec2 position; 
 } square_t;
 
-square_t square_new(float *size, float *position, vao_t vao);
-void square_draw(square_t square, vao_t vao, shader_t shader);
+square_t square_new(float x, float y, float w, float h);
+void square_draw(square_t square, shader_t shader);
 
 #endif // SQUARE_H
