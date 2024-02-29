@@ -3,7 +3,6 @@
 #include "shader.h"
 #include "vao.h"
 #include "vbo.h"
-
 square_t square_new(float x, float y, float w, float h) {
     square_t square;
 
@@ -17,6 +16,8 @@ square_t square_new(float x, float y, float w, float h) {
         0, 3, 2,
         0, 1, 2
     };
+
+    glm_mat4_identity(square.model);
     
     square.vao = vao_new();
     vao_bind(square.vao);
@@ -35,11 +36,17 @@ square_t square_new(float x, float y, float w, float h) {
     return square;
 }
 
-void square_draw(square_t square, shader_t shader) {
-    shader_use(shader);
+void square_draw(square_t square, shader_t shader, mat4 proj) {
+    shader_use(shader); 
+
+    shader_set_uniform_mat4(shader, proj, "projection");
+    shader_set_uniform_mat4(shader, square.model, "model");
+    shader_set_uniform_mat4(shader, GLM_MAT4_IDENTITY, "view");
+
     vao_bind(square.vao);
     vbo_bind(square.vbo);
     ebo_bind(square.ebo);
+
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     vbo_unbind();
     vao_unbind();
