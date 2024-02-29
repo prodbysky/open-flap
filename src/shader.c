@@ -12,7 +12,7 @@ char* read_file(char* name) {
 
     char* string = malloc(sizeof(char) * (fileSize + 1));
     fread(string, sizeof(char), fileSize, file);
-    string[fileSize + 1] = 0;
+    string[fileSize] = 0;
 
     fclose(file);
     LOG("[LOG]: Successfully read file: %s\n", name);
@@ -67,4 +67,16 @@ void shader_use(shader_t shader) {
 
 void shader_delete(shader_t shader) {
     glDeleteProgram(shader.ID);
+}
+
+void shader_set_uniform_mat4(shader_t shader, mat4 data, const char* name) {
+    int uniformLocation = glGetUniformLocation(shader.ID, name);
+
+    if (uniformLocation == -1) {
+        LOG("[WARNING]: Tried to set non-existent uniform: %s\n", name);
+        return;
+    }
+
+    shader_use(shader);
+    glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, &data[0][0]);
 }
