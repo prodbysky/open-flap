@@ -4,14 +4,11 @@
 #include "../include/GLEW/glew.h"
 #include "../include/GLFW/glfw3.h"
 
-#define WINDOW_WIDTH 640
-#define WINDOW_HEIGHT 640
+#define WINDOW_WIDTH 640.0f
+#define WINDOW_HEIGHT 640.0f
 
 #include "square.h"
 #include "shader.h"
-#include "vao.h"
-#include "vbo.h"
-#include "ebo.h"
 #include "log.h"
 
 
@@ -26,15 +23,17 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    square_t square = square_new(0, 0, 0.1, 0.1);
+    square_t square = square_new(350, 350, 100, 100);
 
     shader_t shader = shader_new("vertex.glsl", "fragment.glsl");
+    mat4 projection;
+    glm_ortho(0.0f, WINDOW_WIDTH, 0.0f, WINDOW_HEIGHT, -10.0f, 10.0f, projection);
 
     while (!glfwWindowShouldClose(window)) {
         glClearColor(0.035f, 0.05f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        square_draw(square, shader);
+        square_draw(square, shader, projection);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
