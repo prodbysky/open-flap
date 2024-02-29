@@ -52,3 +52,7 @@ void square_draw(square_t square, shader_t shader, mat4 proj) {
     vao_unbind();
     ebo_unbind();
 }
+
+void square_move(square_t *square, float dx, float dy) {
+    glm_translate(square->model, (vec3){dx, dy, 0});
+}

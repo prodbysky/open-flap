@@ -18,5 +18,6 @@ typedef struct {
 
 square_t square_new(float x, float y, float w, float h);
 void square_draw(square_t square, shader_t shader, mat4 proj);
+void square_move(square_t* square, float dx, float dy);
 
 #endif // SQUARE_H
