@@ -13,10 +13,10 @@ typedef struct {
     vao_t vao;
     vbo_t vbo; 
     ebo_t ebo;
-    vec2 position; 
+    mat4 model;
 } square_t;
 
 square_t square_new(float x, float y, float w, float h);
-void square_draw(square_t square, shader_t shader);
+void square_draw(square_t square, shader_t shader, mat4 proj);
 
 #endif // SQUARE_H
