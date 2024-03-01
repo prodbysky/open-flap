@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 
     square_t square = square_new(350, 350, 100, 100);
 
-    shader_t shader = shader_new("default.vert.glsl", "default.frag.glsl");
+    shader_t defaultShader = shader_new("default.vert.glsl", "default.frag.glsl");
     mat4 projection;
     glm_ortho(0.0f, WINDOW_WIDTH, 0.0f, WINDOW_HEIGHT, -10.0f, 10.0f, projection);
 
@@ -33,12 +33,12 @@ int main(int argc, char *argv[]) {
         glClearColor(0.035f, 0.05f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        square_draw(square, shader, projection);
+        square_draw(square, defaultShader, projection);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
    
-    shader_delete(shader);
+    shader_delete(defaultShader);
     glfwDestroyWindow(window);
     glfwTerminate();
 
