@@ -8,6 +8,7 @@
 #define WINDOW_HEIGHT 640.0f
 
 #include "square.h"
+#include "textured_square.h"
 #include "shader.h"
 #include "log.h"
 
@@ -23,9 +24,11 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    square_t square = square_new(350, 350, 100, 100);
+    // square_t square = square_new(350, 350, 100, 100);
+    textured_square_t square = textured_square_new(350, 350, 100, 100, "../resources/pop-cat.png");
 
     shader_t defaultShader = shader_new("default.vert.glsl", "default.frag.glsl");
+    shader_t textureShader = shader_new("texture.vert.glsl", "texture.frag.glsl");
     mat4 projection;
     glm_ortho(0.0f, WINDOW_WIDTH, 0.0f, WINDOW_HEIGHT, -10.0f, 10.0f, projection);
 
@@ -33,7 +36,8 @@ int main(int argc, char *argv[]) {
         glClearColor(0.035f, 0.05f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        square_draw(square, defaultShader, projection);
+        /// square_draw(square, defaultShader, projection);
+        textured_square_draw(square, textureShader, projection);
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
