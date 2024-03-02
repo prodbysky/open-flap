@@ -15,10 +15,11 @@ texture_t texture_new(const char *name) {
     unsigned char* data = stbi_load(name, &width, &height, &nrChannels, 0);
 
     if (data) {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
+        LOG("[LOG]: Loaded image: %s\n", name);
     } else {
-        LOG("[ERROR]: Failed to load image: %s", name);
+        LOG("[ERROR]: Failed to load image: %s\n", name);
         return (texture_t){0};
     }
 
