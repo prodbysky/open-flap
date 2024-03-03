@@ -1,5 +1,4 @@
 #include "window.h"
-#include <GL/gl.h>
 
 
 window_t window_new(int w, int h, const char *title) {
