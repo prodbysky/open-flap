@@ -25,18 +25,13 @@ textured_square_t textured_square_new(float x, float y, float w, float h, const 
     square.ebo = ebo_new(indices, sizeof(indices), GL_STATIC_DRAW);
 
     vao_bind(square.vao);
-    vbo_bind(square.vbo);
-    ebo_bind(square.ebo);
     vao_add_attribute_f(square.vao, 0, 3, sizeof(float) * 5, 0, square.vbo);
     vao_add_attribute_f(square.vao, 1, 2, sizeof(float) * 5, sizeof(float) * 3, square.vbo);
     vao_enable_attribute(0);
     vao_enable_attribute(1);
     vao_unbind();
-    vbo_unbind();
-    ebo_unbind();
 
     return square;
-
 }
 
 void textured_square_draw(textured_square_t square, shader_t shader, mat4 proj) {
@@ -52,7 +47,6 @@ void textured_square_draw(textured_square_t square, shader_t shader, mat4 proj) 
     vao_bind(square.vao);
     vbo_bind(square.vbo);
     ebo_bind(square.ebo);
-
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     vbo_unbind();
     vao_unbind();
