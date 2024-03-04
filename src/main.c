@@ -9,37 +9,10 @@
 #include "square.h"
 #include "shader.h"
 #include "log.h"
+#include "bird.h"
 
 #define WINDOW_HEIGHT 640.0f
 #define WINDOW_WIDTH 640.0f
-
-#define GRAVITY -0.981f 
-
-typedef struct {
-    textured_square_t rect;
-    float velocity; // y velocity
-    float offset;    // to avoid updating the vertices every frame
-    float jumpPower;
-} bird_t;
-
-bird_t bird_new(int x, int y, int w, int h) {
-    bird_t bird;
-    bird.rect = textured_square_new(x, y, w, h, "bird.png");
-    bird.velocity = 0.0;
-    bird.offset = 0;
-    bird.jumpPower = 10;
-    return bird;
-}
-
-void bird_update(bird_t* bird, window_t window) {
-    if (window_key_down(window, GLFW_KEY_SPACE)) {
-        bird->velocity = bird->jumpPower;
-    } else {
-        bird->velocity += GRAVITY;
-    }
-    bird->offset += bird->velocity; 
-    textured_square_move(&bird->rect, 0, bird->velocity);
-}
 
 int main(int argc, char *argv[]) {
     window_t window = window_new(WINDOW_WIDTH, WINDOW_HEIGHT, "Open flap");
