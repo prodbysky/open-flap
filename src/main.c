@@ -14,12 +14,14 @@
 #define WINDOW_WIDTH 640.0f
 
 #define GRAVITY -0.981f 
+
 typedef struct {
     square_t rect;
     float velocity; // y velocity
     float offset;    // to avoid updating the vertices every frame
     float jumpPower;
 } bird_t;
+
 bird_t bird_new(int x, int y, int w, int h) {
     bird_t bird;
     bird.rect = square_new(x, y, w, h);
@@ -28,6 +30,7 @@ bird_t bird_new(int x, int y, int w, int h) {
     bird.jumpPower = 10;
     return bird;
 }
+
 void bird_update(bird_t* bird, window_t window) {
     if (window_key_down(window, GLFW_KEY_SPACE)) {
         bird->velocity = bird->jumpPower;
@@ -37,6 +40,7 @@ void bird_update(bird_t* bird, window_t window) {
     bird->offset += bird->velocity; 
     square_move(&bird->rect, 0, bird->velocity);
 }
+
 int main(int argc, char *argv[]) {
     window_t window = window_new(WINDOW_WIDTH, WINDOW_HEIGHT, "Open flap");
 
