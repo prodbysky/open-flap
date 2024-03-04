@@ -19,6 +19,14 @@ typedef struct {
     float offset;    // to avoid updating the vertices every frame
     float jumpPower;
 } bird_t;
+bird_t bird_new(int x, int y, int w, int h) {
+    bird_t bird;
+    bird.rect = square_new(x, y, w, h);
+    bird.velocity = 0.0;
+    bird.offset = 0;
+    bird.jumpPower = 10;
+    return bird;
+}
 int main(int argc, char *argv[]) {
     window_t window = window_new(WINDOW_WIDTH, WINDOW_HEIGHT, "Open flap");
 
