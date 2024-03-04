@@ -26,7 +26,6 @@ int main(int argc, char *argv[]) {
     mat4 projection;
     glm_ortho(0.0f, WINDOW_WIDTH, 0.0f, WINDOW_HEIGHT, -10.0f, 10.0f, projection);
 
-
     bird_t bird = bird_new(128, 256);
 
     while (!window_should_close(window)) {

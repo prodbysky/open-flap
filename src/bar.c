@@ -11,7 +11,7 @@ bar_t bar_new(int x, int y, int w, int h, float speed) {
     return bar;
 }
 
-void bar_update(bar_t* bar, window_t window) {
+void bar_update(bar_t* bar) {
     bar->offsetX += bar->speed;
     square_move(&bar->rect, bar->speed, 0);
 }

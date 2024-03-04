@@ -12,6 +12,6 @@ typedef struct {
 } bar_t;
 
 bar_t bar_new(int x, int y, int w, int h, float speed);
-void bar_update(bar_t* bar, window_t window);
+void bar_update(bar_t* bar);
 
 #endif // BAR_H
