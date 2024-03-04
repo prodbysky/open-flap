@@ -17,5 +17,8 @@ void shader_use(shader_t shader);
 void shader_delete(shader_t shader);
 
 void shader_set_uniform_mat4(shader_t shader, mat4 data, const char* name);
+void shader_set_uniform_1i(shader_t shader, GLint data, const char* name);
+
+void shader_set_active_texture(int textureIndex);
 
 #endif // SHADER_H

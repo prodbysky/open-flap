@@ -1,4 +1,5 @@
 #include "textured_square.h"
+#include "shader.h"
 #include "texture.h"
 
 textured_square_t textured_square_new(float x, float y, float w, float h, const char* textureName) {
@@ -41,9 +42,9 @@ void textured_square_draw(textured_square_t square, shader_t shader, mat4 proj) 
     shader_set_uniform_mat4(shader, proj, "projection");
     shader_set_uniform_mat4(shader, square.model, "model");
     shader_set_uniform_mat4(shader, GLM_MAT4_IDENTITY, "view");
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, square.texture.ID);
-    glUniform1i(glGetUniformLocation(shader.ID, "utexture"), 0);
+    shader_set_active_texture(0);
+    texture_bind(square.texture);
+    shader_set_uniform_1i(shader, 0, "utexture");
 
     vao_bind(square.vao);
     vbo_bind(square.vbo);

@@ -3,7 +3,7 @@
 texture_t texture_new(const char *name) {
     texture_t tex;
     glGenTextures(1, &tex.ID);
-    glBindTexture(GL_TEXTURE_2D, tex.ID);
+    texture_bind(tex);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -25,4 +25,12 @@ texture_t texture_new(const char *name) {
 
     stbi_image_free(data);
     return tex;
+}
+
+void texture_bind(texture_t texture) {
+    glBindTexture(GL_TEXTURE_2D, texture.ID);
+}
+
+void texture_unbind() {
+    glBindTexture(GL_TEXTURE_2D, 0);
 }

@@ -80,3 +80,19 @@ void shader_set_uniform_mat4(shader_t shader, mat4 data, const char* name) {
     shader_use(shader);
     glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, &data[0][0]);
 }
+
+void shader_set_uniform_1i(shader_t shader, GLint data, const char *name) {
+    int uniformLocation = glGetUniformLocation(shader.ID, name);
+
+    if (uniformLocation == -1) {
+        LOG("[WARNING]: Tried to set non-existent uniform: %s\n", name);
+        return;
+    }
+
+    shader_use(shader);
+    glUniform1i(uniformLocation, data);
+}
+
+void shader_set_active_texture(int textureIndex) {
+    glActiveTexture(GL_TEXTURE0 + textureIndex);
+}
