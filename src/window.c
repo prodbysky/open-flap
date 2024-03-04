@@ -1,7 +1,17 @@
 #include "window.h"
+#include <string.h>
 
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+    window_t* my_window = glfwGetWindowUserPointer(window);
 
-window_t window_new(int w, int h, const char *title) {
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
+        glfwSetWindowShouldClose(window, GL_TRUE);
+    }
+
+    my_window->keys[key] = action;
+}
+
+window_t window_new(float w, float h, const char *title) {
     glfwInit();
 
     // Tell OpenGL to use OpenGL 3.3 Core
@@ -10,6 +20,7 @@ window_t window_new(int w, int h, const char *title) {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     window_t window;
+    memset(window.keys, 0, 352);
     window.window = glfwCreateWindow(w, h, title,  NULL, NULL);
 
     if (window.window == NULL) {
@@ -33,6 +44,8 @@ window_t window_new(int w, int h, const char *title) {
 
     LOG("[LOG]: Successfully created a window and initialized OpenGL functions\n");
 
+
+
     return window;
 }
 
@@ -53,4 +66,13 @@ bool window_should_close(window_t window) {
 void window_delete(window_t window) {
     glfwDestroyWindow(window.window);
     glfwTerminate();
+}
+
+bool window_key_down(window_t window, GLenum key) {
+    return window.keys[key];
+}
+
+void window_set_callback(window_t* window) {
+    glfwSetWindowUserPointer(window->window, window);
+    glfwSetKeyCallback(window->window, key_callback);
 }

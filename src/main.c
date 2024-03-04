@@ -20,6 +20,7 @@ int main(int argc, char *argv[]) {
         glfwTerminate();
         return 0;
     }
+    window_set_callback(&window);
 
     textured_square_t square = textured_square_new(350, 350, 100, 100, "../resources/pop-cat.png");
 
@@ -33,6 +34,9 @@ int main(int argc, char *argv[]) {
         window_clear(0.035f, 0.05f, 0.2f, 1.0f);
 
         textured_square_draw(square, textureShader, projection);
+        if (window_key_down(window, GLFW_KEY_A)) {
+            LOG("Key a is pressed!\n");
+        }
         window_swap(window);
     }
    
