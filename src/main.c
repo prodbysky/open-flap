@@ -6,12 +6,19 @@
 
 #include "window.h"
 #include "textured_square.h"
+#include "square.h"
 #include "shader.h"
 #include "log.h"
 
 #define WINDOW_HEIGHT 640.0f
 #define WINDOW_WIDTH 640.0f
 
+typedef struct {
+    square_t rect;
+    float velocity; // y velocity
+    float offset;    // to avoid updating the vertices every frame
+    float jumpPower;
+} bird_t;
 int main(int argc, char *argv[]) {
     window_t window = window_new(WINDOW_WIDTH, WINDOW_HEIGHT, "Open flap");
 
