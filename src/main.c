@@ -16,7 +16,7 @@
 #define GRAVITY -0.981f 
 
 typedef struct {
-    square_t rect;
+    textured_square_t rect;
     float velocity; // y velocity
     float offset;    // to avoid updating the vertices every frame
     float jumpPower;
@@ -24,7 +24,7 @@ typedef struct {
 
 bird_t bird_new(int x, int y, int w, int h) {
     bird_t bird;
-    bird.rect = square_new(x, y, w, h);
+    bird.rect = textured_square_new(x, y, w, h, "bird.png");
     bird.velocity = 0.0;
     bird.offset = 0;
     bird.jumpPower = 10;
@@ -38,7 +38,7 @@ void bird_update(bird_t* bird, window_t window) {
         bird->velocity += GRAVITY;
     }
     bird->offset += bird->velocity; 
-    square_move(&bird->rect, 0, bird->velocity);
+    textured_square_move(&bird->rect, 0, bird->velocity);
 }
 
 int main(int argc, char *argv[]) {
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     }
     window_set_callback(&window);
 
-    bird_t bird = bird_new(200, 350, 100, 100);
+    bird_t bird = bird_new(128, 256, 64, 64);
 
     shader_t defaultShader = shader_new("default.vert.glsl", "default.frag.glsl");
     shader_t textureShader = shader_new("texture.vert.glsl", "texture.frag.glsl");
@@ -63,10 +63,7 @@ int main(int argc, char *argv[]) {
         bird_update(&bird, window);
         window_clear(0.035f, 0.05f, 0.2f, 1.0f);
 
-        square_draw(bird.rect, defaultShader, projection);
-        if (window_key_down(window, GLFW_KEY_A)) {
-            LOG("Key a is pressed!\n");
-        }
+        textured_square_draw(bird.rect, textureShader, projection);
         window_swap(window);
     }
    
