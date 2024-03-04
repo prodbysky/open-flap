@@ -1,12 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../include/GLEW/glew.h"
-#include "../include/GLFW/glfw3.h"
-
 #include "window.h"
 #include "textured_square.h"
-#include "square.h"
 #include "shader.h"
 #include "log.h"
 #include "bird.h"
