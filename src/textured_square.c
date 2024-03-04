@@ -5,11 +5,12 @@ textured_square_t textured_square_new(float x, float y, float w, float h, const 
     textured_square_t square;
 
     GLfloat vertices[] = {
-         x,   y, 1.0f, 0.0f, 1.0f, // Top left
-         x - w, y, 1.0f, 1.0f, 1.0f, // Top right
-         x - w, y - h, 1.0f, 1.0f, 0.0f, // Bottom right
-         x, y - h, 1.0f, 0.0f, 0.0f, // Bottom left
+         x,     y,     1.0f, 1.0f, 1.0f, // Top left
+         x - w, y,     1.0f, 0.0f, 1.0f, // Top right
+         x - w, y - h, 1.0f, 0.0f, 0.0f, // Bottom right
+         x,     y - h, 1.0f, 1.0f, 0.0f, // Bottom left
     };
+
     GLint indices[] = {
         0, 3, 2,
         0, 1, 2
