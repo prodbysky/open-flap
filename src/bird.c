@@ -1,11 +1,11 @@
 #include "bird.h"
 
-bird_t bird_new(int x, int y, int w, int h) {
+bird_t bird_new(int x, int y) {
     bird_t bird;
-    bird.rect = textured_square_new(x, y, w, h, "bird.png");
+    bird.rect = textured_square_new(x, y, BIRD_WIDTH, BIRD_HEIGHT, BIRD_TEXTURE_PATH);
     bird.velocity = 0.0;
     bird.offset = 0;
-    bird.jumpPower = 10;
+    bird.jumpPower = BIRD_JUMP_POWER;
     return bird;
 }
 
