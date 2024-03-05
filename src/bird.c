@@ -1,4 +1,5 @@
 #include "bird.h"
+#include "textured_square.h"
 
 bird_t bird_new(int x, int y) {
     bird_t bird;
@@ -9,12 +10,16 @@ bird_t bird_new(int x, int y) {
     return bird;
 }
 
+void bird_move(bird_t* bird, float y) {
+    bird->offset += y;
+    textured_square_move(&bird->rect, 0, y);
+}
+
 void bird_update(bird_t* bird, window_t window) {
     if (window_key_down(window, GLFW_KEY_SPACE)) {
         bird->velocity = bird->jumpPower;
     } else {
         bird->velocity += GRAVITY;
     }
-    bird->offset += bird->velocity; 
-    textured_square_move(&bird->rect, 0, bird->velocity);
+    bird_move(bird, bird->velocity);
 }

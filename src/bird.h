@@ -21,6 +21,7 @@ typedef struct {
 } bird_t;
 
 bird_t bird_new(int x, int y);
+void bird_move(bird_t* bar, float y);
 void bird_update(bird_t* bird, window_t window);
 
 #endif // BIRD_H
