@@ -15,7 +15,7 @@
 
 typedef struct {
     textured_square_t rect;
-    float velocity; // y velocity
+    float velocity;  // y velocity
     float offset;    // to avoid updating the vertices every frame
     float jumpPower;
 } bird_t;
