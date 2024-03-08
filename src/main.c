@@ -1,15 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
+#include "config.h"
 #include "square.h"
 #include "window.h"
 #include "textured_square.h"
 #include "shader.h"
 #include "log.h"
 #include "bird.h"
-
-#define WINDOW_HEIGHT 640.0f
-#define WINDOW_WIDTH 640.0f
 
 int main(int argc, char *argv[]) {
     window_t window = window_new(WINDOW_WIDTH, WINDOW_HEIGHT, "Open flap");
@@ -28,8 +27,19 @@ int main(int argc, char *argv[]) {
 
     bird_t bird = bird_new(128, 256);
 
+    double previousTime, currentTime, elapsedTime;
+    currentTime = glfwGetTime();
+    previousTime = currentTime;
+
     while (!window_should_close(window)) {
-        bird_update(&bird, window);
+        currentTime = glfwGetTime();
+        elapsedTime = currentTime - previousTime;
+
+        if (elapsedTime >= TICK_DURATION) {
+            bird_update(&bird, window);
+            previousTime = currentTime;
+        }
+
         window_clear(0.035f, 0.05f, 0.2f, 1.0f);
 
         textured_square_draw(bird.rect, textureShader, projection);

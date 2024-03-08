@@ -7,9 +7,8 @@
 
 
 // Bird configuration
-#define GRAVITY -0.61f 
 #define BIRD_TEXTURE_PATH "bird.png"
-#define BIRD_JUMP_POWER 10
+#define BIRD_JUMP_POWER 750
 #define BIRD_HEIGHT 64
 #define BIRD_WIDTH BIRD_HEIGHT
 
