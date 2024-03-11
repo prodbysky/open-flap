@@ -44,8 +44,6 @@ window_t window_new(float w, float h, const char *title) {
 
     LOG("[LOG]: Successfully created a window and initialized OpenGL functions\n");
 
-
-
     return window;
 }
 

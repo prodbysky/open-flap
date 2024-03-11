@@ -5,7 +5,6 @@
 #include "window.h"
 #include "../include/GLFW/glfw3.h"
 
-
 // Bird configuration
 #define BIRD_TEXTURE_PATH "bird.png"
 #define BIRD_JUMP_POWER 750
