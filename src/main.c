@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-
 #include "config.h"
 #include "square.h"
 #include "window.h"
