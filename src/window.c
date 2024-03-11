@@ -20,7 +20,7 @@ window_t window_new(float w, float h, const char *title) {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     window_t window;
-    memset(window.keys, 0, 352);
+    memset(window.keys, 0, sizeof(window.keys));
     window.window = glfwCreateWindow(w, h, title,  NULL, NULL);
 
     if (window.window == NULL) {
