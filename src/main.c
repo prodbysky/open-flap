@@ -22,7 +22,8 @@ int main(int argc, char *argv[]) {
     shader_t defaultShader = shader_new("default.vert.glsl", "default.frag.glsl");
     shader_t textureShader = shader_new("texture.vert.glsl", "texture.frag.glsl");
     mat4 projection;
-    glm_ortho(0.0f, WINDOW_WIDTH, 0.0f, WINDOW_HEIGHT, -10.0f, 10.0f, projection);
+    // glm_ortho(0.0f, WINDOW_WIDTH, 0.0f, WINDOW_HEIGHT, -10.0f, 10.0f, projection);
+    glm_ortho(0.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, -10.0f, 10.0f, projection);
 
     bird_t bird = bird_new(128, 256);
 

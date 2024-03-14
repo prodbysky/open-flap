@@ -18,7 +18,7 @@ void bird_move(bird_t* bird, float y) {
 
 void bird_update(bird_t* bird, window_t window) {
     if (window_key_down(window, GLFW_KEY_SPACE)) {
-        bird->velocity = bird->jumpPower * TICK_DURATION;
+        bird->velocity = -bird->jumpPower * TICK_DURATION;
     } else {
         bird->velocity += GRAVITY * TICK_DURATION;
     }
